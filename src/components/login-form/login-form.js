@@ -13,21 +13,23 @@ import { useAuth } from '../../contexts/auth';
 import './login-form.scss';
 
 export default function (props) {
+ 
   const history = useHistory();
   const { logIn } = useAuth();
   const [loading, setLoading] = useState(false);
   const formData = useRef({});
 
   const onSubmit = useCallback(async (e) => {
+    console.log("asdasd")
     e.preventDefault();
-    console.log('data',)
     const { email, password } = formData.current;
-    console.log('data',formData.current)
     setLoading(true);
+   
 
     await logIn(email, password);
+    console.log("asdas")
   }, [logIn]);
-
+  
   const onCreateAccountClick = useCallback(() => {
     history.push('/create-account');
   }, [history]);

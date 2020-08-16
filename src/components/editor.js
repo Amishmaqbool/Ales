@@ -6,41 +6,35 @@ import Form, {
   ButtonItem,
   ButtonOptions,
   RequiredRule,
+  CustomRule,
   EmailRule
 } from 'devextreme-react/form';
 import LoadIndicator from 'devextreme-react/load-indicator';
-import { useAuth } from '../../contexts/auth';
 import './create-account-form.scss';
 
 const role=['Teacher', 'Student'];
-export default function (props) {
 
-  const { signUp } = useAuth();
+export default function (props) {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const formData = useRef({});
-
   
-  
-  // const onCreateAccountClick = useCallback(() => {
-  //   history.push('/create-account');
-  // }, [history]);
-
-
-
 
   const onSubmit = useCallback(async (e) => {
     e.preventDefault();
-    const { email, password, confirmPassword} = formData.current;
+    const { email, password  ,confirmePassword ,Role  } = formData.current;
     setLoading(true);
 
-    await signUp(email,password,confirmPassword);
-  }, [signUp]);
+    // Send create account request
+    console.log(email, password, confirmePassword,Role);
 
-  // const confirmPassword = useCallback(
-  //   ({ value }) => value = confirmPassword,
-  //   []
-  // );
+    history.push('/login');
+  }, [history]);
+
+  const confirmPassword = useCallback(
+    ({ value }) => value === formData.current.password,
+    []
+  );
 
   return (
     <form className={'create-account-form'} onSubmit={onSubmit}>
@@ -63,11 +57,15 @@ export default function (props) {
           <Label visible={false} />
         </Item>
         <Item
-          dataField={'confirmPassword'}
+          dataField={'confirmePassword'}
           editorType={'dxTextBox'}
           editorOptions={confirmedPasswordEditorOptions}
         >
-          
+          <RequiredRule message="Password is required" />
+          <CustomRule
+            message={'Passwords do not match'}
+            validationCallback={confirmPassword}
+          />
           <Label visible={false} />
         </Item>
         <Item 

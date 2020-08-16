@@ -20,7 +20,7 @@ export default function() {
         <Redirect to={'/home'} />
       </Switch>
       <Footer>
-        Copyright © 2011-2019 Developer Express Inc.
+        
         <br />
         All trademarks or registered trademarks are property of their
         respective owners.
