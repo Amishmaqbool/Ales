@@ -20,7 +20,9 @@ export default function (props) {
 
   const onSubmit = useCallback(async (e) => {
     e.preventDefault();
+    console.log('data',)
     const { email, password } = formData.current;
+    console.log('data',formData.current)
     setLoading(true);
 
     await logIn(email, password);

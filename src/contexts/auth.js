@@ -2,10 +2,7 @@ import React, { useState, useEffect, createContext, useContext, useCallback } fr
 
 const AuthContext = createContext({});
 const useAuth = () => useContext(AuthContext);
-const defaultUser = {
-  email: 'sandra@example.com',
-  avatarUrl: 'https://js.devexpress.com/Demos/WidgetsGallery/JSDemos/images/employees/06.png'
-}
+
 
 function AuthProvider(props) {
   const [user, setUser] = useState();
@@ -13,11 +10,13 @@ function AuthProvider(props) {
 
   const logIn = useCallback(async (email, password) => {
     // Send login request
+
+    
     console.log(email, password);
 
     setUser({
       email,
-      avatarUrl: defaultUser.avatarUrl
+      avatarUrl: ""
     });
   }, []);
 
@@ -30,7 +29,7 @@ function AuthProvider(props) {
   useEffect(() => {
     // Retrieve and save user data on initial load
 
-    setUser(defaultUser);
+    setUser();
     setLoading(false);
   }, []);
 

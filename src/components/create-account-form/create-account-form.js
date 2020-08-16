@@ -12,18 +12,21 @@ import Form, {
 import LoadIndicator from 'devextreme-react/load-indicator';
 import './create-account-form.scss';
 
+const role=['Teacher', 'Student'];
+
 export default function (props) {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const formData = useRef({});
+  
 
   const onSubmit = useCallback(async (e) => {
     e.preventDefault();
-    const { email, password } = formData.current;
+    const { email, password  ,confirmePassword ,Role  } = formData.current;
     setLoading(true);
 
     // Send create account request
-    console.log(email, password);
+    console.log(email, password, confirmePassword,Role);
 
     history.push('/login');
   }, [history]);
@@ -54,7 +57,7 @@ export default function (props) {
           <Label visible={false} />
         </Item>
         <Item
-          dataField={'confirmedPassword'}
+          dataField={'confirmePassword'}
           editorType={'dxTextBox'}
           editorOptions={confirmedPasswordEditorOptions}
         >
@@ -64,6 +67,12 @@ export default function (props) {
             validationCallback={confirmPassword}
           />
           <Label visible={false} />
+        </Item>
+        <Item 
+              dataField="Role" 
+              editorType="dxSelectBox" 
+              editorOptions={RoleEditorOptions}>
+                <RequiredRule message="Role is required " />
         </Item>
         <Item>
           <div className='policy-info'>
@@ -98,3 +107,4 @@ export default function (props) {
 const emailEditorOptions = { stylingMode: 'filled', placeholder: 'Email', mode: 'email' };
 const passwordEditorOptions = { stylingMode: 'filled', placeholder: 'Password', mode: 'password' };
 const confirmedPasswordEditorOptions = { stylingMode: 'filled', placeholder: 'Confirm Password', mode: 'password' };
+const RoleEditorOptions = {dataSource: role };
