@@ -31,10 +31,10 @@ export default function (props) {
 
   const onSubmit = useCallback(async (e) => {
     e.preventDefault();
-    const { email, password, confirmPassword} = formData.current;
+    const { email, password, Role,confirmPassword} = formData.current;
     setLoading(true);
 
-    await signUp(email,password,confirmPassword);
+    await signUp(email,password, Role,confirmPassword);
   }, [signUp]);
 
   // const confirmPassword = useCallback(

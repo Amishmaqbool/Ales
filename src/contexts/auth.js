@@ -19,7 +19,7 @@ function AuthProvider(props) {
   
 
 
-  const signUp = useCallback(async (email,password,confirmPassword)=>{
+  const signUp = useCallback(async (email,password, Role,confirmPassword)=>{
   
     // Send create account request
     
@@ -35,7 +35,8 @@ function AuthProvider(props) {
       body: new URLSearchParams({  
         email:email,  
         password:password,
-        confirmPassword:confirmPassword  
+        confirmPassword:confirmPassword,
+        role:Role  
       }) 
     });
     const newResp = await resp.json()
