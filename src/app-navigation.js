@@ -6,8 +6,24 @@ export const navigation = [
   },
   {
     text: 'Assignment',
-    path: '/Assignments',
-    icon: 'home'
+    icon: 'home',
+    items:[
+      {
+        text: 'Create Assignment',
+        path: '/Assignments'
+      
+      },
+      {
+        text: 'View Assignments',
+        path: '/viewAssignments'
+      
+      },
+      {
+        text: 'Student Submissions',
+        
+      
+      }
+    ]
   },
   {
     text: 'Examples',
