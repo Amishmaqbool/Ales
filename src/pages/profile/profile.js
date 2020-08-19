@@ -8,15 +8,10 @@ export default () => {
   );
   const employee = {
     ID: 7,
-    FirstName: 'Sandra',
-    LastName: 'Johnson',
-    Prefix: 'Mrs.',
-    Position: 'Controller',
-    Picture: 'images/employees/06.png',
-    BirthDate: new Date('1974/11/15'),
-    HireDate: new Date('2005/05/11'),
-    Notes: notes,
-    Address: '4600 N Virginia Rd.'
+    Name: 'Sandra',
+    Email:'',
+    Role:''
+    
   };
 
   return (

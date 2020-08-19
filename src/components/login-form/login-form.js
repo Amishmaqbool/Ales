@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+  import React, { useState, useRef, useCallback } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Form, {
   Item,
@@ -28,13 +28,15 @@ export default function (props) {
 
     await logIn(email, password);
     console.log("asdas")
-  }, [logIn]);
+  },[logIn]);
+  // 
   
   const onCreateAccountClick = useCallback(() => {
     history.push('/create-account');
   }, [history]);
 
   return (
+    
     <form className={'login-form'} onSubmit={onSubmit}>
       <Form formData={formData.current} disabled={loading}>
         <Item
@@ -70,7 +72,7 @@ export default function (props) {
             <span className="dx-button-text">
               {
                 loading
-                  ? <LoadIndicator width={'24px'} height={'24px'} visible={true} />
+                 ? <LoadIndicator width={'24px'} height={'24px'} visible={true} />
                   : 'Sign In'
               }
             </span>

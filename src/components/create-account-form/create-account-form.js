@@ -30,7 +30,7 @@ export default function (props) {
 
 
   const onSubmit = useCallback(async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     const { email, password, Role,confirmPassword} = formData.current;
     setLoading(true);
 

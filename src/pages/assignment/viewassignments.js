@@ -1,89 +1,86 @@
-import React from 'react';
-import 'devextreme/data/odata/store';
+import React, { useState, useRef, useCallback, useEffect } from "react";
+import {useHistory, Link } from "react-router-dom";
+import "devextreme/data/odata/store";
 import DataGrid, {
   Column,
   Pager,
   Paging,
   FilterRow,
-  Lookup
-} from 'devextreme-react/data-grid';
+  Lookup,
+} from "devextreme-react/data-grid";
+import CustomStore from 'devextreme/data/custom_store';
+import 'whatwg-fetch';
+import 'devextreme/dist/css/dx.common.css';
+import 'devextreme/dist/css/dx.light.css';
+ 
+import List from 'devextreme-react/list';
 
-export default () => (
-  <React.Fragment>
-    <h2 className={'content-block'}>View Assignments</h2>
-    <div className={'content-block'}>
-    <DataGrid
-      className={'dx-card wide-card'}
-    //   dataSource={dataSource}
-      showBorders={false}
-      focusedRowEnabled={true}
-      defaultFocusedRowIndex={0}
-      columnAutoWidth={true}
-      columnHidingEnabled={true}
-    >
-      <Paging defaultPageSize={10} />
-      <Pager showPageSizeSelector={true} showInfo={true} />
-      <FilterRow visible={true} />
 
-      <Column dataField={'ID'} width={90} hidingPriority={2} />
-      <Column
-        dataField={'Task_Subject'}
-        width={190}
-        caption={'Assignment Name'}
-        hidingPriority={8}
-      />
-      <Column
-        dataField={'Task_Status'}
-        caption={'Status'}
-        hidingPriority={6}
-      />
+
+export default () => {
+
+  
+
+  const history = useHistory();
+  const [loading, setLoading] = useState(false);
+  const formData = useRef({});
+  const [user, setUser] = useState();
+  const [data, setData] = useState('');
+  
+    // e.preventDefault();
+    // setLoading(true);
+
+    function handleErrors(response) {
+      if (!response.ok)
+          throw Error(response.statusText);
+      return response;
+  }
     
-      <Column
-        dataField={'Task_Start_Date'}
-        caption={'Start Date'}
-        dataType={'date'}
-        hidingPriority={3}
-      />
-      <Column
-        dataField={'Task_Due_Date'}
-        caption={'Due Date'}
-        dataType={'date'}
-        hidingPriority={4}
-      />
-       <Column
-        dataField={'Task_Due_Date'}
-        caption={'Create date'}
-        dataType={'date'}
-        hidingPriority={4}
-      />
-      
-    </DataGrid>
-    </div>
-  </React.Fragment>
-);
+  const customDataSource = new CustomStore({
+    key: 'assignmentId',
+    loadMode: 'raw', // omit in the DataGrid, TreeList, PivotGrid, and Scheduler
+    load: () => {
+        return fetch('http://localhost:8080/api/viewAssignments')
+            .then(handleErrors)
+            .then(response => response.json())
+            .catch(() => { throw 'Network error' });
+    }
+});
 
-// const dataSource = {
-//   store: {
-//     type: 'odata',
-//     key: 'Task_ID',
-//     url: 'https://js.devexpress.com/Demos/DevAV/odata/Tasks'
-//   },
-//   expand: 'ResponsibleEmployee',
-//   select: [
-//     'Task_ID',
-//     'Task_Subject',
-//     'Task_Start_Date',
-//     'Task_Due_Date',
-//     'Task_Status',
-//     'Task_Priority',
-//     'Task_Completion',
-//     'ResponsibleEmployee/Employee_Full_Name'
-//   ]
-// };
+  return (
+    <DataGrid
+      dataSource={customDataSource}
+      showBorders={true}
+    >
+      <Column dataField="assignmentId" />
+      <Column
+        dataField="assignmentTitle"
+        width={250}
+      />
+        
+      <Column
+        dataField="activationDate"
+        caption="Start Date"
+        dataType="number"
+        format="currency"
+      />
+      <Column
+        dataField="expirationDate"
+        caption="End Date"
+        dataType="number"
+        format="currency"
+      />
+      <Column
+        dataField="createdAt"
+        caption="Create Date"
+      />
+    </DataGrid>
+  );
+};
 
 const priorities = [
-  { name: 'High', value: 4 },
-  { name: 'Urgent', value: 3 },
-  { name: 'Normal', value: 2 },
-  { name: 'Low', value: 1 }
+  { name: "High", value: 4 },
+  { name: "Urgent", value: 3 },
+  { name: "Normal", value: 2 },
+  { name: "Low", value: 1 },
 ];

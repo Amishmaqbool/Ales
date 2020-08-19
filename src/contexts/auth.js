@@ -19,7 +19,7 @@ function AuthProvider(props) {
   
 
 
-  const signUp = useCallback(async (email,password, Role,confirmPassword)=>{
+  const signUp = useCallback(async (email,password,Role,confirmPassword)=>{
   
     // Send create account request
     
@@ -41,11 +41,33 @@ function AuthProvider(props) {
     });
     const newResp = await resp.json()
     console.log('newResp', newResp)
+    if(newResp.response.message === "your password should be 8-13 charas,special characters, lower and uppercase letters!cters with number")
+    {
+      
+      // history.push('/create-account');
+      window.alert("your password should be 8-13 charas,special characters, lower and uppercase letters!cters with number");
+      history.push('/');
+      history.replace('/create-account');
+
+    }
+    else if(newResp.response.message === "Congratulations account registered!")
+    {
+      window.alert("Congratulations account registered!");
+      history.push('/login');
+    }
+    else if(newResp.response.message === "this account is already registered, please choose another one!")
+    {
+      window.alert("this account is already registered, please choose another one!");
+      history.push('/');
+      history.replace('/create-account');
+    }
     console.log(email, password);
     // console.log(email, password);
-  
-    history.push('/login');
-  }, [history]);
+    
+    
+     
+     
+  });
   
 
   
@@ -71,12 +93,33 @@ function AuthProvider(props) {
     console.log('newResp', newResp)
     console.log(email, password);
     
+      
+    if(newResp.response.message === "Oops your email is not registered!")
+    {
+      window.alert("Oops your email is not registered!");
+      history.push('/ ');
+      history.replace('/create-account');
+    }
+    else if(newResp.response.message === "Enter a correct password!")
+    {
+      window.alert("Enter a correct password!");
+      history.push('/ ');
+      history.replace('/login');
+      
+    }
+    else if(newResp.response.message === "Login Successful!")
+    {
+      window.alert("Login Successful!");
+      // history.push('/home')
       setUser({
         email,
+        password,
         avatarUrl: defaultUser.avatarUrl
       });
-    
-    history.push('/home');
+      
+    }
+    //history.push('/login');
+    //history.push('/home');
     
   }); 
 
@@ -89,8 +132,9 @@ function AuthProvider(props) {
   useEffect(() => {
     // Retrieve and save user data on initial load
 
-    setUser(defaultUser);
+    setUser();
     setLoading(false);
+    
   }, []);
 
   return (

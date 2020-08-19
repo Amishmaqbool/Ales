@@ -28,7 +28,15 @@ export default function () {
         <SingleCard title="Change Password">
           <ChangePasswordForm />
         </SingleCard>
+        
       </Route>
+      {/* <Route exact path='/viewAsssignments' >
+        <SingleCard title="viewAssignments">
+          <ViewAssignments />
+        </SingleCard>
+      </Route> */}
+      
+      
       <Redirect to={'/login'} />
     </Switch>
   );
