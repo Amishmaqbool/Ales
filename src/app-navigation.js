@@ -20,7 +20,7 @@ export const navigation = [
       },
       {
         text: 'Student Submissions',
-        
+        path: '/viewSubmissions'
       
       }
     ]

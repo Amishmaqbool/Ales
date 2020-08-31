@@ -30,11 +30,16 @@ export default function () {
         </SingleCard>
         
       </Route>
-      {/* <Route exact path='/viewAsssignments' >
-        <SingleCard title="viewAssignments">
-          <ViewAssignments />
+          {/* <Route exact path='/viewAsssignments' >
+            <SingleCard title="viewAssignments">
+              <ViewAssignments />
+            </SingleCard>
+          </Route> */}
+          <Route exact path='/editor' >
+        <SingleCard title="editor">
+          
         </SingleCard>
-      </Route> */}
+      </Route>
       
       
       <Redirect to={'/login'} />

@@ -55,12 +55,6 @@ function renderfunction (){
     >
       <Column dataField="assignmentTitle" />
       
-      <Column      
-        dataField="assignmentQuestion"
-        caption="question"
-        dataType="number"
-        format="currency" 
-      />
       
         
       <Column
